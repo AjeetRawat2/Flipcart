@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block body %}
+  <div class="container">
+    
+    <div class="product-left">
+      <div class="product-gallery">
+        <div class="thumbnails">
+          <div class="thumb active">
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Thumbnail 1">
+          </div>
+          <div class="thumb">
+            <img src="https://via.placeholder.com/55" alt="Thumbnail 2">
+          </div>
+          <div class="thumb">
+            <img src="https://via.placeholder.com/55" alt="Thumbnail 3">
+          </div>
+          <div class="thumb">
+            <img src="https://via.placeholder.com/55" alt="Thumbnail 4">
+          </div>
+          <div class="thumb">
+            <img src="https://via.placeholder.com/55" alt="Thumbnail 5">
+          </div>
+        </div>
+        
+        <div class="main-image">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Samsung Galaxy S24 FE 5G Blue">
+          <div class="wishlist">❤</div>
+        </div>
+      </div>
+      
+      <div class="buttons">
+        <button class="btn btn-cart">
+          <i>🛒</i> thodi dher baad lunga
+        </button>
+        <button class="btn btn-buy">
+          <i>⚡</i> kharid lo
+        </button>
+      </div>
+    </div>
+    
+    <div class="product-right">
+      <h1 class="product-title">White T-Shirt</h1>
+      
+      <div class="ratings">
+        <div class="stars">4.5</div>
+        <div class="review-count">4,262 Ratings & 334 Reviews</div>
+        <div class="assured">
+          <img src="/api/placeholder/70/20" alt="Assured">
+        </div>
+      </div>
+      
+      <div class="price-container">
+        <div class="extra-off">Extra ₹150off</div>
+        <span class="price">₹100</span>
+        <span class="mrp">₹250</span>
+        <span class="discount">22% off</span>
+      </div>
+      
+      <div class="offers">
+        <h3 class="section-title">Available offers</h3>
+        
+        <div class="offer-item">
+          <div class="offer-icon">🏷️</div>
+          <div class="offer-text">
+            <strong>Bank Offer</strong> 5% Unlimited Cashback on Flipkart Axis Bank Credit Card
+            <a href="#" class="tc-link">T&C</a>
+          </div>
+        </div>
+        
+        <div class="offer-item">
+          <div class="offer-icon">🏷️</div>
+          <div class="offer-text">
+            <strong>Special Price</strong> Get extra ₹150 off (price inclusive of cashback/coupon)
+            <a href="#" class="tc-link">T&C</a>
+          </div>
+        </div>
+        
+        <div class="offer-item">
+          <div class="offer-icon">📆</div>
+          <div class="offer-text">
+            <strong>No cost EMI ₹50/month.</strong> Standard EMI also available
+            <a href="#" class="view-plans">View Plans</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="purchase-options">
+        <div class="option">
+          <input type="radio" name="purchase-option" id="no-exchange" checked class="radio">
+          <label for="no-exchange" class="option-text">Buy without Exchange</label>
+          <div class="option-price">₹100</div>
+        </div>
+        
+        <div class="option">
+          <input type="radio" name="purchase-option" id="with-exchange" class="radio">
+          <label for="with-exchange" class="option-text">Buy with Exchange</label>
+          <div class="option-price">up to ₹20 off</div>
+          <div class="option-note">Enter pincode to check if exchange is available</div>
+        </div>
+      </div>
+      
+      <div class="warranty">
+        <img src="/api/placeholder/90/30" alt="Nike" class="brand-logo">
+        <div class="warranty-text">
+          2 months Manufacturer Warranty 
+          <a href="#" class="know-more">Know More</a>
+        </div>
+      </div>
+      
+      <div class="color-selector">
+        <div class="color-title">Color</div>
+        <div class="color-options">
+          <div class="color-option active">
+            <img src="/api/placeholder/50/70" alt="Blue">
+          </div>
+          <div class="color-option">
+            <img src="/api/placeholder/50/70" alt="Black">
+          </div>
+          <div class="color-option">
+            <img src="/api/placeholder/50/70" alt="Green">
+          </div>
+        </div>
+      </div>
+      
+      <div class="storage-selector">
+        <div class="storage-title">Size</div>
+        <div class="storage-options">
+          <div class="storage-option">M</div>
+          <div class="storage-option active">L</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock body %}
