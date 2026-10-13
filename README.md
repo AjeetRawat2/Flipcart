@@ -24,3 +24,5 @@ The Vercel showcase database uses temporary SQLite storage under `/tmp`; it is n
 This repository is deployed as a Vercel preview from the `codex/flipkart-storefront-rebuild` branch; `main` remains the production branch.
 
 Vercel project preset: Django. Commits to the showcase branch create preview deployments.
+
+The showcase deployment uses Vercel's Django framework preset.
