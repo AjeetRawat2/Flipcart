@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure--_f53(c6p%@yw!#lbmigkn^ogxptmuhu_5^@%0y=+h09)eq+9y'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'flipcart-showcase-key-change-for-any-shared-deployment')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'false' if os.environ.get('VERCEL') else 'true').lower() == 'true'
 
-ALLOWED_HOSTS = ['192.168.247.105', 'localhost', '127.0.0.1','.vercel.app','*']
+ALLOWED_HOSTS = ['192.168.247.105', 'localhost', '127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS.extend(host.strip() for host in os.environ.get('DJANGO_ALLOWED_HOSTS', '').split(',') if host.strip())
+if os.environ.get('VERCEL_URL'):
+    ALLOWED_HOSTS.append(os.environ['VERCEL_URL'].split(':')[0])
+CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS', '').split(',') if origin.strip()]
+if os.environ.get('VERCEL_URL'):
+    CSRF_TRUSTED_ORIGINS.append(f"https://{os.environ['VERCEL_URL'].split(':')[0]}")
 
 
 # Application definition
@@ -37,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'flipcart',
 ]
 
 MIDDLEWARE = [
@@ -75,9 +83,12 @@ WSGI_APPLICATION = 'pract.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.environ.get('DJANGO_DB_PATH', BASE_DIR / 'db.sqlite3'),
     }
 }
+if os.environ.get('VERCEL'):
+    # Demo-only persistence within a warm serverless instance; use an external DB for durable user data.
+    DATABASES['default']['NAME'] = os.environ.get('DJANGO_DB_PATH', '/tmp/flipcart-showcase.sqlite3')
 
 
 # Password validation
@@ -119,6 +130,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ] 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -127,3 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Added manually
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'assets'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'account'
+LOGOUT_REDIRECT_URL = 'home'
