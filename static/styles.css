@@ -56,9 +56,8 @@ body.has-scrolled .site-header{box-shadow:0 8px 24px #10244520}
 .category-pill:hover{transform:translateY(-2px);box-shadow:0 5px 12px #193c7018}
 .product-section,.showcase-banner,.checkout-card,.checkout-summary,.cart-panel,.auth-panel,.auth-promo,.account-card{border-radius:12px}
 .product-section{padding:clamp(18px,2.5vw,30px);box-shadow:0 9px 28px #15294d0b}
-.product-card{overflow:hidden;border-radius:10px;animation-delay:calc((var(--card-index, 0))*35ms)}
-.product-card:nth-child(n){animation-delay:calc((var(--card-index, 0))*35ms)}
-.product-grid>.product-card:nth-child(1){--card-index:0}.product-grid>.product-card:nth-child(2){--card-index:1}.product-grid>.product-card:nth-child(3){--card-index:2}.product-grid>.product-card:nth-child(4){--card-index:3}.product-grid>.product-card:nth-child(5){--card-index:4}.product-grid>.product-card:nth-child(6){--card-index:5}.product-grid>.product-card:nth-child(7){--card-index:6}.product-grid>.product-card:nth-child(8){--card-index:7}.product-grid>.product-card:nth-child(9){--card-index:8}.product-grid>.product-card:nth-child(10){--card-index:9}.product-grid>.product-card:nth-child(11){--card-index:10}.product-grid>.product-card:nth-child(12){--card-index:11}
+.product-card{overflow:hidden;border-radius:10px}
+.product-grid>.product-card:nth-child(7){animation-delay:.27s}.product-grid>.product-card:nth-child(8){animation-delay:.315s}.product-grid>.product-card:nth-child(9){animation-delay:.36s}.product-grid>.product-card:nth-child(10){animation-delay:.405s}.product-grid>.product-card:nth-child(11){animation-delay:.45s}.product-grid>.product-card:nth-child(12){animation-delay:.495s}
 .product-name{display:-webkit-box;min-height:2.8em;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-height:1.4}
 .product-image-wrap{background:radial-gradient(ellipse at center,#fff 16%,#f4f7fb 100%)}
 .product-image-wrap img{transition:transform .6s cubic-bezier(.2,.7,.25,1),filter .4s ease}
@@ -106,3 +105,4 @@ body.has-scrolled .site-header{box-shadow:0 8px 24px #10244520}
   .demo-ribbon,.ribbon-spark,.hero-slide.active,.showcase-banner .banner-orbit,.showcase-banner .banner-orbit span{animation:none!important}
   .motion-reveal,.product-card.motion-reveal:not(.is-visible){opacity:1;transform:none}
 }
+
