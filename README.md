@@ -22,3 +22,5 @@ Vercel detects the Django `manage.py`, WSGI application, and collected static fi
 The Vercel showcase database uses temporary SQLite storage under `/tmp`; it is not durable across serverless instances or redeploys. Accounts, carts, and orders are demonstrations and should not be used for real customers. Use a managed database and production authentication/payment providers before operating a real store.
 
 This repository is deployed as a Vercel preview from the `codex/flipkart-storefront-rebuild` branch; `main` remains the production branch.
+
+Vercel project preset: Django. Commits to the showcase branch create preview deployments.
