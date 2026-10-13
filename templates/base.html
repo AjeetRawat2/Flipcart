@@ -1,53 +1,74 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock title %} | Flipcart </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <link rel="stylesheet" href="static/style.css">
-    <link rel="stylesheet" href="static/styles.css">
-  </head>
-  <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#">FlipCart</a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Store</a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Items
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Clothes</a></li>
-                      <li><a class="dropdown-item" href="#">Electronics</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Decors</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Costumes</a>
-                  </li>
-                </ul>
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                  <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-              </div>
-            </div>
-          </nav>
-    </header>
-    {% block body %}{% endblock body %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+{% load static %}<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2874f0">
+  <meta name="description" content="Shop mobiles, fashion, electronics and more on Flipkart.">
+  <title>{% block title %}Online Shopping Site{% endblock %} | Flipkart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+  <div class="demo-ribbon"><span class="ribbon-spark" aria-hidden="true" data-lucide="sparkles">✦</span> Showcase experience <span>•</span> No real payments are collected</div>
+  <header class="site-header">
+    <div class="header-main">
+      <a class="brand" href="{% url 'home' %}" aria-label="Flipkart home"><span class="brand-name">Flipkart</span><span class="brand-tagline">Explore <b>Plus ✦</b></span></a>
+      <form class="search-form" action="{% url 'home' %}" method="get" role="search"><span class="search-icon" aria-hidden="true" data-lucide="search">⌕</span><input type="search" name="q" value="{{ query|default:'' }}" placeholder="Search for products, brands and more" aria-label="Search products"><button type="submit">Search</button></form>
+      <div class="header-actions">
+        {% if request.user.is_authenticated %}
+          <a class="header-link account-link" href="{% url 'account' %}"><span aria-hidden="true" data-lucide="user-round">♙</span><span>{{ request.user.first_name|default:request.user.username|truncatechars:16 }}</span></a>
+          <form action="{% url 'logout' %}" method="post" class="logout-inline">{% csrf_token %}<button class="header-link" type="submit">Logout</button></form>
+        {% else %}<a class="login-cta" href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">Login</a>{% endif %}
+        <a class="header-link seller-link" href="{% url 'account' %}"><span aria-hidden="true" data-lucide="store">▧</span><span>Become a Seller</span></a>
+        <a class="header-link more-link" href="{% url 'account' %}"><span>More</span><span class="chevron" aria-hidden="true" data-lucide="chevron-down">⌄</span></a>
+        <a class="header-link cart-link" href="{% url 'cart' %}"><span class="cart-icon" aria-hidden="true" data-lucide="shopping-cart">🛒</span><span>Cart</span>{% if cart_count %}<b class="cart-count">{{ cart_count }}</b>{% endif %}</a>
+      </div>
+    </div>
+    <nav class="category-nav" aria-label="Shop by category">
+      <a href="{% url 'home' %}" class="category-item"><span class="category-emoji" data-lucide="badge-percent">✦</span><span>Top Offers</span></a>
+      {% for category in categories %}<a href="{% url 'home' %}?category={{ category|urlencode }}" class="category-item"><span class="category-emoji" data-lucide="{% if category == 'Mobiles' %}smartphone{% elif category == 'Electronics' %}headphones{% elif category == 'Fashion' %}shirt{% elif category == 'Home' %}lamp-desk{% elif category == 'Travel' %}backpack{% elif category == 'Books' %}book-open{% else %}sparkles{% endif %}">{% if category == 'Mobiles' %}📱{% elif category == 'Electronics' %}🎧{% elif category == 'Fashion' %}👕{% elif category == 'Home' %}🏠{% elif category == 'Travel' %}🎒{% elif category == 'Books' %}📚{% else %}✨{% endif %}</span><span>{{ category }}</span></a>{% endfor %}
+      <a href="{% url 'home' %}?sort=rating" class="category-item"><span class="category-emoji" data-lucide="star">⭐</span><span>Best Rated</span></a>
+    </nav>
+  </header>
+  {% if messages %}<div class="toast-stack" aria-live="polite">{% for message in messages %}<div class="site-toast {{ message.tags }}"><span>{{ message }}</span><button type="button" aria-label="Dismiss" onclick="this.parentElement.remove()">×</button></div>{% endfor %}</div>{% endif %}
+  <main>{% block body %}{% endblock %}</main>
+  <footer class="site-footer"><div class="footer-top"><div><span class="footer-label">ABOUT</span><a href="{% url 'home' %}">Contact Us</a><a href="{% url 'home' %}">About Us</a><a href="{% url 'home' %}">Careers</a></div><div><span class="footer-label">HELP</span><a href="{% url 'account' %}">Payments</a><a href="{% url 'account' %}">Shipping</a><a href="{% url 'account' %}">Returns</a></div><div><span class="footer-label">POLICY</span><a href="{% url 'home' %}">Terms of Use</a><a href="{% url 'home' %}">Privacy</a><a href="{% url 'home' %}">Security</a></div><div><span class="footer-label">SOCIAL</span><a href="{% url 'home' %}">Facebook</a><a href="{% url 'home' %}">Instagram</a><a href="{% url 'home' %}">YouTube</a></div><div class="footer-about"><span class="footer-label">MAIL US</span><p>Flipkart Internet Private Limited<br>Showcase project · Bengaluru, India</p><span class="footer-label">REGISTERED OFFICE</span><p>Demo storefront for learning and portfolio use.</p></div></div><div class="footer-bottom"><span>♧ Become a Seller</span><span>✦ Advertise</span><span>ⓘ Help Center</span><span>© 2007–2026 Flipkart Showcase</span><span>🔒 Demo only · No real payments</span></div></footer>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (() => {
+      if (window.lucide) lucide.createIcons({ attrs: { 'stroke-width': 1.8 } });
+      const progress = document.querySelector('.scroll-progress span');
+      const updateProgress = () => {
+        const max = document.documentElement.scrollHeight - innerHeight;
+        if (progress) progress.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+        document.body.classList.toggle('has-scrolled', scrollY > 24);
+      };
+      addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+
+      const targets = document.querySelectorAll('.benefit-strip, .category-pills, .product-section, .showcase-banner, .detail-layout, .related-section, .cart-page-heading, .cart-layout, .cart-panel, .checkout-heading, .checkout-card, .checkout-summary, .auth-promo, .auth-panel, .account-welcome, .account-columns, .account-card, .order-confirmation, .product-card');
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const reveal = new IntersectionObserver((entries, observer) => entries.forEach(entry => {
+          if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+        }), { threshold: .08, rootMargin: '0px 0px -28px 0px' });
+        targets.forEach(target => { target.classList.add('motion-reveal'); reveal.observe(target); });
+      }
+
+      document.querySelectorAll('.add-cart-button, .primary-button, .hero-button').forEach(button => {
+        button.addEventListener('pointerdown', () => button.classList.add('is-pressed'));
+        ['pointerup', 'pointerleave', 'blur'].forEach(event => button.addEventListener(event, () => button.classList.remove('is-pressed')));
+      });
+      document.querySelectorAll('.category-item').forEach(item => {
+        if (new URL(item.href).searchParams.get('category') === new URL(location.href).searchParams.get('category') && location.search.includes('category=')) item.classList.add('is-current');
+      });
+    })();
+  </script>
+  {% block scripts %}{% endblock %}
 </body>
 </html>
