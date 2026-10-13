@@ -20,3 +20,5 @@ Open `http://127.0.0.1:8000`. Use sample details to create a showcase account. L
 Vercel detects the Django `manage.py`, WSGI application, and collected static files. Set `DJANGO_SECRET_KEY` in the Vercel project environment for preview and production. Set `DJANGO_DEBUG=false`. `DJANGO_ALLOWED_HOSTS` and `DJANGO_CSRF_TRUSTED_ORIGINS` can be used for custom domains.
 
 The Vercel showcase database uses temporary SQLite storage under `/tmp`; it is not durable across serverless instances or redeploys. Accounts, carts, and orders are demonstrations and should not be used for real customers. Use a managed database and production authentication/payment providers before operating a real store.
+
+This repository is deployed as a Vercel preview from the `codex/flipkart-storefront-rebuild` branch; `main` remains the production branch.
